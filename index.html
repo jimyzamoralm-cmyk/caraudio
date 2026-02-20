@@ -4,47 +4,65 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Jimy Zamora Car Audio Experts | Cotiza por WhatsApp</title>
+  <meta name="description" content="Cotiza por WhatsApp tu caja rumbera, turbo rumbera, combo interno, alarma o GPS en Santo Domingo. Instalación profesional. Ubicación en Google Maps." />
 
   <style>
     :root{
       --bg:#0b0b0f; --card:#12121a; --text:#f4f4f6;
       --muted:#b7b7c4; --red:#e11d2e; --line:#242438;
     }
+    *{box-sizing:border-box}
     body{
       margin:0; font-family:Arial, sans-serif;
-      background:var(--bg); color:var(--text);
+      background: radial-gradient(1200px 500px at 20% 0%, rgba(225,29,46,.18), transparent 60%),
+                  radial-gradient(900px 420px at 90% 5%, rgba(255,255,255,.06), transparent 55%),
+                  var(--bg);
+      color:var(--text);
     }
-    .wrap{max-width:900px; margin:auto; padding:20px}
+    .wrap{max-width:980px; margin:auto; padding:22px 16px 60px}
     .card{
-      background:#12121a; padding:20px;
-      border-radius:16px; margin-top:15px;
+      background:rgba(18,18,26,.78);
+      padding:22px;
+      border-radius:18px;
+      margin-top:16px;
       border: 1px solid var(--line);
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      backdrop-filter: blur(8px);
     }
-    h1{font-size:36px; margin:0}
-    h2{margin:0 0 10px}
-    p{color:var(--muted)}
+    h1{font-size:40px; margin:0; letter-spacing:.2px}
+    h2{margin:0 0 12px}
+    p{color:var(--muted); margin:10px 0 0; line-height:1.5}
     .btn{
       display:inline-block;
-      padding:14px 20px;
+      padding:14px 22px;
       background:var(--red);
       color:#fff;
-      border-radius:50px;
+      border-radius:999px;
       text-decoration:none;
-      font-weight:bold;
-      margin-top:15px;
+      font-weight:900;
+      margin-top:16px;
+      box-shadow: 0 16px 40px rgba(225,29,46,.25);
     }
-.logo{
-  width:280px;
-  margin-bottom:20px;
-  filter: drop-shadow(0 0 10px rgba(225,29,46,0.6));
-}
+    .btn.secondary{
+      background:rgba(255,255,255,.10);
+      box-shadow:none;
+      border:1px solid var(--line);
+      margin-left:10px;
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .logo{
+      width:290px;
+      max-width: 92%;
+      margin-bottom:14px;
+      filter: drop-shadow(0 0 14px rgba(225,29,46,0.65));
+    }
 
     input, select{
-      width:100%; padding:12px;
+      width:100%; padding:12px 12px;
       margin-top:10px;
-      border-radius:10px;
+      border-radius:12px;
       border:1px solid var(--line);
-      background:#0f0f16;
+      background:rgba(255,255,255,.04);
       color:var(--text);
       outline:none;
     }
@@ -52,30 +70,68 @@
     .grid{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:10px;
+      gap:12px;
     }
-    @media (max-width:680px){
+    @media (max-width:720px){
       .grid{grid-template-columns:1fr}
-      h1{font-size:30px}
+      h1{font-size:32px}
     }
-    .hint{font-size:13px; color:#9a9aac; margin-top:8px}
+    .hint{font-size:13px; color:#9a9aac; margin-top:10px}
+    .locationLine{
+      margin-top:12px;
+      color:#cfcfda;
+      font-size:14px;
+    }
+    .locationLine a{
+      color:#fff;
+      text-decoration:none;
+      border-bottom:1px dashed rgba(255,255,255,.35);
+    }
+    .locationLine a:hover{border-bottom-color:#fff}
+    .divider{
+      height:1px; background:var(--line);
+      margin:16px 0 0;
+    }
+    iframe{
+      width:100%;
+      height:280px;
+      border:0;
+      border-radius:14px;
+      margin-top:16px;
+      background:#0f0f16;
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
 
-    <!-- LOGO / HERO -->
+    <!-- HERO -->
     <div class="card" style="text-align:center">
+      <!-- IMPORTANTE: el logo debe llamarse logo.png -->
       <img src="logo.png" class="logo" alt="Jimy Zamora Logo">
-      <h1>Haz que tu carro suene BRUTAL 🔥</h1>
+
+      <h1>Haz que tu carro suene <span style="color:var(--red)">BRUTAL</span> 🔥</h1>
       <p>Te cotizamos directo por WhatsApp en segundos</p>
 
-      <a id="waTop" class="btn" target="_blank" rel="noopener">Cotizar ahora</a>
+      <div style="margin-top:6px">
+        <a id="waTop" class="btn" target="_blank" rel="noopener">Cotizar ahora</a>
+        <a href="https://share.google/duUEzapkL5VROStTF" target="_blank" class="btn secondary" rel="noopener">Cómo llegar 📍</a>
+      </div>
 
-      <p style="margin-top:10px;color:#aaa">
-        📍 Av. Puerto Ila y Teodoro Wolf
-      </p>
+      <div class="locationLine">
+        📍 <a href="https://share.google/duUEzapkL5VROStTF" target="_blank" rel="noopener">
+          Av. Puerto Ila y Teodoro Wolf (Ver ubicación en Google Maps)
+        </a>
+      </div>
+
+      <!-- MAPA NIVEL DIOS -->
+      <iframe
+        src="https://maps.google.com/maps?q=Jimy%20Zamora%20Car%20Audio%20Experts&t=&z=16&ie=UTF8&iwloc=&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Ubicación Jimy Zamora Car Audio Experts">
+      </iframe>
     </div>
 
     <!-- FORM -->
@@ -105,6 +161,14 @@
 
       <div class="hint">
         Tip: si es caja, envíanos foto del maletero por WhatsApp para cotizar más rápido ✅
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="locationLine" style="margin-top:14px">
+        📍 <a href="https://share.google/duUEzapkL5VROStTF" target="_blank" rel="noopener">
+          Av. Puerto Ila y Teodoro Wolf (Cómo llegar)
+        </a>
       </div>
     </div>
 
@@ -139,7 +203,6 @@ Vengo de la landing. ¿Me ayudas con precio instalado?`;
     document.getElementById("waBtn").href = link;
   }
 
-  // Actualiza el link mientras escriben
   ["car","year","need","budget","city"].forEach(id=>{
     const el = document.getElementById(id);
     el.addEventListener("input", actualizar);
@@ -151,4 +214,5 @@ Vengo de la landing. ¿Me ayudas con precio instalado?`;
 
 </body>
 </html>
+
 
