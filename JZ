@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jimy Zamora Car Audio Experts | Cotiza por WhatsApp</title>
+
+  <style>
+    :root{
+      --bg:#0b0b0f; --card:#12121a; --text:#f4f4f6;
+      --muted:#b7b7c4; --red:#e11d2e; --line:#242438;
+    }
+    body{
+      margin:0; font-family:Arial;
+      background:var(--bg); color:var(--text);
+    }
+    .wrap{max-width:900px; margin:auto; padding:20px}
+    .card{
+      background:#12121a; padding:20px;
+      border-radius:16px; margin-top:15px;
+    }
+    h1{font-size:36px; margin:0}
+    .btn{
+      display:inline-block;
+      padding:14px 20px;
+      background:var(--red);
+      color:#fff;
+      border-radius:50px;
+      text-decoration:none;
+      font-weight:bold;
+      margin-top:15px;
+    }
+    .logo{
+      width:140px;
+      margin-bottom:10px;
+    }
+    input, select{
+      width:100%; padding:12px;
+      margin-top:10px;
+      border-radius:10px;
+      border:none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- LOGO -->
+    <div class="card" style="text-align:center">
+      <img src="logo.png" class="logo" alt="Jimy Zamora Logo">
+      <h1>Haz que tu carro suene BRUTAL 🔥</h1>
+      <p>Te cotizamos directo por WhatsApp en segundos</p>
+
+      <a id="waTop" class="btn" target="_blank">Cotizar ahora</a>
+
+      <p style="margin-top:10px;color:#aaa">
+        📍 Av. Puerto Ila y Teodoro Wolf
+      </p>
+    </div>
+
+    <!-- FORM -->
+    <div class="card">
+      <h2>Arma tu cotización</h2>
+
+      <input id="car" placeholder="Carro (Ej: Vitara)">
+      <input id="year" placeholder="Año">
+
+      <select id="need">
+        <option>Caja rumbera</option>
+        <option>Turbo rumbera</option>
+        <option>Combo interno</option>
+        <option>DSP</option>
+        <option>Mejorar equipo</option>
+      </select>
+
+      <input id="budget" placeholder="Presupuesto">
+
+      <a id="waBtn" class="btn" target="_blank">Enviar por WhatsApp</a>
+    </div>
+
+  </div>
+
+<script>
+const number = "593984484767";
+
+function generarLink(){
+  let car = document.getElementById("car").value;
+  let year = document.getElementById("year").value;
+  let need = document.getElementById("need").value;
+  let budget = document.getElementById("budget").value;
+
+  let msg = `Hola Jimy, quiero cotizar:%0A`;
+  msg += `Carro: ${car} (${year})%0A`;
+  msg += `Necesito: ${need}%0A`;
+  msg += `Presupuesto: ${budget}`;
+
+  return `https://wa.me/${number}?text=${msg}`;
+}
+
+function actualizar(){
+  let link = generarLink();
+  document.getElementById("waTop").href = link;
+  document.getElementById("waBtn").href = link;
+}
+
+document.querySelectorAll("input,select").forEach(e=>{
+  e.addEventListener("input", actualizar);
+});
+
+actualizar();
+</script>
+
+</body>
+</html>
