@@ -11,15 +11,18 @@
       --muted:#b7b7c4; --red:#e11d2e; --line:#242438;
     }
     body{
-      margin:0; font-family:Arial;
+      margin:0; font-family:Arial, sans-serif;
       background:var(--bg); color:var(--text);
     }
     .wrap{max-width:900px; margin:auto; padding:20px}
     .card{
       background:#12121a; padding:20px;
       border-radius:16px; margin-top:15px;
+      border: 1px solid var(--line);
     }
     h1{font-size:36px; margin:0}
+    h2{margin:0 0 10px}
+    p{color:var(--muted)}
     .btn{
       display:inline-block;
       padding:14px 20px;
@@ -31,28 +34,43 @@
       margin-top:15px;
     }
     .logo{
-      width:140px;
+      width:160px;
+      max-width: 70%;
       margin-bottom:10px;
     }
     input, select{
       width:100%; padding:12px;
       margin-top:10px;
       border-radius:10px;
-      border:none;
+      border:1px solid var(--line);
+      background:#0f0f16;
+      color:var(--text);
+      outline:none;
     }
+    input::placeholder{color:#8e8ea0}
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width:680px){
+      .grid{grid-template-columns:1fr}
+      h1{font-size:30px}
+    }
+    .hint{font-size:13px; color:#9a9aac; margin-top:8px}
   </style>
 </head>
 
 <body>
   <div class="wrap">
 
-    <!-- LOGO -->
+    <!-- LOGO / HERO -->
     <div class="card" style="text-align:center">
       <img src="logo.png" class="logo" alt="Jimy Zamora Logo">
       <h1>Haz que tu carro suene BRUTAL 🔥</h1>
       <p>Te cotizamos directo por WhatsApp en segundos</p>
 
-      <a id="waTop" class="btn" target="_blank">Cotizar ahora</a>
+      <a id="waTop" class="btn" target="_blank" rel="noopener">Cotizar ahora</a>
 
       <p style="margin-top:10px;color:#aaa">
         📍 Av. Puerto Ila y Teodoro Wolf
@@ -60,56 +78,76 @@
     </div>
 
     <!-- FORM -->
-    <div class="card">
+    <div class="card" id="form">
       <h2>Arma tu cotización</h2>
 
-      <input id="car" placeholder="Carro (Ej: Vitara)">
-      <input id="year" placeholder="Año">
+      <div class="grid">
+        <input id="car" placeholder="Carro (Ej: Vitara)">
+        <input id="year" placeholder="Año (Ej: 2012)">
+      </div>
 
       <select id="need">
         <option>Caja rumbera</option>
         <option>Turbo rumbera</option>
         <option>Combo interno</option>
-        <option>DSP</option>
-        <option>Mejorar equipo</option>
+        <option>Alarma</option>
+        <option>GPS</option>
+        <option>Otro</option>
       </select>
 
-      <input id="budget" placeholder="Presupuesto">
+      <div class="grid">
+        <input id="budget" placeholder="Presupuesto (Ej: $200 - $350)">
+        <input id="city" placeholder="Ciudad (Ej: Santo Domingo)">
+      </div>
 
-      <a id="waBtn" class="btn" target="_blank">Enviar por WhatsApp</a>
+      <a id="waBtn" class="btn" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+
+      <div class="hint">
+        Tip: si es caja, envíanos foto del maletero por WhatsApp para cotizar más rápido ✅
+      </div>
     </div>
 
   </div>
 
 <script>
-const number = "593984484767";
+  // ✅ Tu WhatsApp (sin +, sin espacios)
+  const number = "593984484767";
 
-function generarLink(){
-  let car = document.getElementById("car").value;
-  let year = document.getElementById("year").value;
-  let need = document.getElementById("need").value;
-  let budget = document.getElementById("budget").value;
+  function generarLink(){
+    const car = document.getElementById("car").value.trim();
+    const year = document.getElementById("year").value.trim();
+    const need = document.getElementById("need").value.trim();
+    const budget = document.getElementById("budget").value.trim();
+    const city = document.getElementById("city").value.trim();
 
-  let msg = `Hola Jimy, quiero cotizar:%0A`;
-  msg += `Carro: ${car} (${year})%0A`;
-  msg += `Necesito: ${need}%0A`;
-  msg += `Presupuesto: ${budget}`;
+    const msg =
+`Hola Jimy, quiero cotizar:
+Carro: ${car || "No especificado"} ${year ? "(" + year + ")" : ""}
+Categoría: ${need || "No especificado"}
+Presupuesto: ${budget || "No especificado"}
+Ciudad: ${city || "No especificado"}
 
-  return `https://wa.me/${number}?text=${msg}`;
-}
+Vengo de la landing. ¿Me ayudas con precio instalado?`;
 
-function actualizar(){
-  let link = generarLink();
-  document.getElementById("waTop").href = link;
-  document.getElementById("waBtn").href = link;
-}
+    return `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
+  }
 
-document.querySelectorAll("input,select").forEach(e=>{
-  e.addEventListener("input", actualizar);
-});
+  function actualizar(){
+    const link = generarLink();
+    document.getElementById("waTop").href = link;
+    document.getElementById("waBtn").href = link;
+  }
 
-actualizar();
+  // Actualiza el link mientras escriben
+  ["car","year","need","budget","city"].forEach(id=>{
+    const el = document.getElementById(id);
+    el.addEventListener("input", actualizar);
+    el.addEventListener("change", actualizar);
+  });
+
+  actualizar();
 </script>
 
 </body>
 </html>
+
