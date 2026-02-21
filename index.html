@@ -32,6 +32,7 @@
     h1{font-size:40px; margin:0; letter-spacing:.2px}
     h2{margin:0 0 12px}
     p{color:var(--muted); margin:10px 0 0; line-height:1.5}
+
     .btn{
       display:inline-block;
       padding:14px 22px;
@@ -50,6 +51,7 @@
       margin-left:10px;
     }
     .btn:hover{filter:brightness(1.05)}
+
     .logo{
       width:290px;
       max-width: 92%;
@@ -67,6 +69,7 @@
       outline:none;
     }
     input::placeholder{color:#8e8ea0}
+
     .grid{
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -76,7 +79,9 @@
       .grid{grid-template-columns:1fr}
       h1{font-size:32px}
     }
+
     .hint{font-size:13px; color:#9a9aac; margin-top:10px}
+
     .locationLine{
       margin-top:12px;
       color:#cfcfda;
@@ -88,12 +93,26 @@
       border-bottom:1px dashed rgba(255,255,255,.35);
     }
     .locationLine a:hover{border-bottom-color:#fff}
+
     .divider{
       height:1px; background:var(--line);
       margin:16px 0 0;
     }
 
-
+    /* MAPA (para que se vea pro) */
+    .mapWrap{
+      margin-top:16px;
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    }
+    .mapWrap iframe{
+      display:block;
+      width:100%;
+      height:320px;
+      border:0;
+    }
   </style>
 </head>
 
@@ -102,7 +121,6 @@
 
     <!-- HERO -->
     <div class="card" style="text-align:center">
-      <!-- IMPORTANTE: el logo debe llamarse logo.png -->
       <img src="logo.png" class="logo" alt="Jimy Zamora Logo">
 
       <h1>Haz que tu carro suene <span style="color:var(--red)">BRUTAL</span> 🔥</h1>
@@ -110,28 +128,32 @@
 
       <div style="margin-top:6px">
         <a id="waTop" class="btn" target="_blank" rel="noopener">Cotizar ahora</a>
-        <a href="https://share.google/duUEzapkL5VROStTF" target="_blank" class="btn secondary" rel="noopener">Cómo llegar 📍</a>
+
+        <!-- Botón GPS (pin exacto) -->
+        <a href="https://www.google.com/maps?q=-0.2585749920038546,-79.18829876617119"
+           target="_blank"
+           class="btn secondary"
+           rel="noopener">Cómo llegar 📍</a>
       </div>
 
+      <!-- Texto GPS (pin exacto) -->
       <div class="locationLine">
-        📍 <a href="https://share.google/duUEzapkL5VROStTF" target="_blank" rel="noopener">
+        📍 <a href="https://www.google.com/maps?q=-0.2585749920038546,-79.18829876617119"
+             target="_blank"
+             rel="noopener">
           Av. Puerto Ila y Teodoro Wolf (Ver ubicación en Google Maps)
         </a>
       </div>
- <iframe
-  src="https://www.google.com/maps?q=-0.2585749920038546,-79.18829876617119&z=17&output=embed"
-  width="100%"
-  height="300"
-  style="border:0;border-radius:14px;margin-top:16px;"
-  loading="lazy">
-</iframe>
-      <!-- MAPA NIVEL DIOS -->
-      <iframe
-        src="https://maps.google.com/maps?q=Jimy%20Zamora%20Car%20Audio%20Experts&t=&z=16&ie=UTF8&iwloc=&output=embed"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="Ubicación Jimy Zamora Car Audio Experts">
-      </iframe>
+
+      <!-- MAPA ÚNICO (pin exacto) ✅ -->
+      <div class="mapWrap">
+        <iframe
+          src="https://www.google.com/maps?q=-0.2585749920038546,-79.18829876617119&z=17&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Ubicación Jimy Zamora Car Audio Experts">
+        </iframe>
+      </div>
     </div>
 
     <!-- FORM -->
@@ -165,8 +187,11 @@
 
       <div class="divider"></div>
 
+      <!-- Link GPS abajo (pin exacto) -->
       <div class="locationLine" style="margin-top:14px">
-        📍 <a href="https://share.google/duUEzapkL5VROStTF" target="_blank" rel="noopener">
+        📍 <a href="https://www.google.com/maps?q=-0.2585749920038546,-79.18829876617119"
+             target="_blank"
+             rel="noopener">
           Av. Puerto Ila y Teodoro Wolf (Cómo llegar)
         </a>
       </div>
@@ -175,7 +200,6 @@
   </div>
 
 <script>
-  // ✅ Tu WhatsApp (sin +, sin espacios)
   const number = "593984484767";
 
   function generarLink(){
