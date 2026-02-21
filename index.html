@@ -12,29 +12,58 @@
       --muted:#b7b7c4; --red:#e11d2e; --line:#242438;
     }
     *{box-sizing:border-box}
+
     body{
-      margin:0; font-family:Arial, sans-serif;
-      background: radial-gradient(1200px 500px at 20% 0%, rgba(225,29,46,.18), transparent 60%),
-                  radial-gradient(900px 420px at 90% 5%, rgba(255,255,255,.06), transparent 55%),
-                  var(--bg);
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:
+        radial-gradient(1200px 500px at 20% 0%, rgba(225,29,46,.18), transparent 60%),
+        radial-gradient(900px 420px at 90% 5%, rgba(255,255,255,.06), transparent 55%),
+        var(--bg);
       color:var(--text);
+      overflow-x:hidden;
     }
-    .wrap{max-width:980px; margin:auto; padding:22px 16px 60px}
+
+    .wrap{max-width:980px;margin:auto;padding:22px 16px 70px}
+
     .card{
       background:rgba(18,18,26,.78);
       padding:22px;
       border-radius:18px;
       margin-top:16px;
-      border: 1px solid var(--line);
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      border:1px solid var(--line);
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
       backdrop-filter: blur(8px);
+      transform: translateY(14px);
+      opacity:0;
+      transition: transform .7s ease, opacity .7s ease, box-shadow .35s ease, border-color .35s ease;
     }
-    h1{font-size:40px; margin:0; letter-spacing:.2px}
+    .card:hover{
+      border-color: rgba(225,29,46,.35);
+      box-shadow:0 24px 80px rgba(0,0,0,.45);
+    }
+
+    /* ===== Animación al cargar ===== */
+    .loaded .card{
+      transform: translateY(0);
+      opacity:1;
+    }
+    .card.delay1{transition-delay:.05s}
+    .card.delay2{transition-delay:.18s}
+
+    h1{
+      font-size:40px;
+      margin:0;
+      letter-spacing:.2px;
+    }
     h2{margin:0 0 12px}
     p{color:var(--muted); margin:10px 0 0; line-height:1.5}
 
     .btn{
-      display:inline-block;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
       padding:14px 22px;
       background:var(--red);
       color:#fff;
@@ -42,31 +71,56 @@
       text-decoration:none;
       font-weight:900;
       margin-top:16px;
-      box-shadow: 0 16px 40px rgba(225,29,46,.25);
+      box-shadow:0 16px 40px rgba(225,29,46,.25);
+      transition: transform .18s ease, filter .18s ease, box-shadow .25s ease;
+      user-select:none;
     }
+    .btn:hover{
+      transform: translateY(-1px);
+      filter:brightness(1.06);
+      box-shadow:0 18px 48px rgba(225,29,46,.32);
+    }
+    .btn:active{transform: translateY(0)}
+
     .btn.secondary{
       background:rgba(255,255,255,.10);
       box-shadow:none;
       border:1px solid var(--line);
       margin-left:10px;
     }
-    .btn:hover{filter:brightness(1.05)}
+    .btn.secondary:hover{
+      box-shadow:0 16px 44px rgba(0,0,0,.35);
+      border-color: rgba(255,255,255,.25);
+    }
 
     .logo{
-      width:290px;
-      max-width: 92%;
+      width:300px;
+      max-width:95%;
       margin-bottom:14px;
-      filter: drop-shadow(0 0 14px rgba(225,29,46,0.65));
+      filter: drop-shadow(0 0 18px rgba(225,29,46,0.75));
+      transform: scale(.96);
+      opacity:0;
+      transition: transform .9s ease, opacity .9s ease;
+    }
+    .loaded .logo{
+      transform: scale(1);
+      opacity:1;
     }
 
     input, select{
-      width:100%; padding:12px 12px;
+      width:100%;
+      padding:12px;
       margin-top:10px;
       border-radius:12px;
       border:1px solid var(--line);
       background:rgba(255,255,255,.04);
-      color:var(--text);
+      color:#fff;
       outline:none;
+      transition:border-color .25s ease, box-shadow .25s ease;
+    }
+    input:focus, select:focus{
+      border-color: rgba(225,29,46,.55);
+      box-shadow: 0 0 0 4px rgba(225,29,46,.12);
     }
     input::placeholder{color:#8e8ea0}
 
@@ -75,9 +129,10 @@
       grid-template-columns:1fr 1fr;
       gap:12px;
     }
-    @media (max-width:720px){
+    @media(max-width:720px){
       .grid{grid-template-columns:1fr}
       h1{font-size:32px}
+      .btn.secondary{margin-left:0; margin-top:10px}
     }
 
     .hint{font-size:13px; color:#9a9aac; margin-top:10px}
@@ -99,115 +154,145 @@
       margin:16px 0 0;
     }
 
-    /* MAPA (para que se vea pro) */
+    /* Mapa pro */
     .mapWrap{
       margin-top:16px;
       border-radius:14px;
       overflow:hidden;
       border:1px solid var(--line);
       box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      transform: translateY(10px);
+      opacity:0;
+      transition: transform .8s ease .25s, opacity .8s ease .25s;
+    }
+    .loaded .mapWrap{
+      transform: translateY(0);
+      opacity:1;
     }
     .mapWrap iframe{
-      display:block;
       width:100%;
       height:320px;
       border:0;
+      display:block;
+      filter: saturate(1.05) contrast(1.05);
+    }
+
+    /* Detalle pro: badge */
+    .badge{
+      display:inline-block;
+      font-size:12px;
+      font-weight:800;
+      color:#fff;
+      background:rgba(225,29,46,.18);
+      border:1px solid rgba(225,29,46,.35);
+      padding:6px 10px;
+      border-radius:999px;
+      margin-top:12px;
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+<div class="wrap">
 
-    <!-- HERO -->
-    <div class="card" style="text-align:center">
-      <img src="logo.png" class="logo" alt="Jimy Zamora Logo">
+  <!-- HERO -->
+  <div class="card delay1" style="text-align:center">
 
-      <h1>Haz que tu carro suene <span style="color:var(--red)">BRUTAL</span> 🔥</h1>
-      <p>Te cotizamos directo por WhatsApp en segundos</p>
+    <img src="logo.png" class="logo" alt="Jimy Zamora Logo">
 
-      <div style="margin-top:6px">
-        <a id="waTop" class="btn" target="_blank" rel="noopener">Cotizar ahora</a>
+    <span class="badge">Instalación profesional • Atención rápida</span>
 
-        <!-- Botón GPS (pin exacto) -->
-        <a href="https://www.google.com/maps?q=-0.2585749920038546,-79.18829876617119"
-           target="_blank"
-           class="btn secondary"
-           rel="noopener">Cómo llegar 📍</a>
-      </div>
+    <h1 style="margin-top:10px">
+      Haz que tu carro suene <span style="color:var(--red)">BRUTAL</span> 🔥
+    </h1>
+    <p>Te cotizamos directo por WhatsApp en segundos</p>
 
-      <!-- Texto GPS (pin exacto) -->
-      <div class="locationLine">
-        📍 <a href="https://www.google.com/maps?q=-0.2585749920038546,-79.18829876617119"
-             target="_blank"
-             rel="noopener">
-          Av. Puerto Ila y Teodoro Wolf (Ver ubicación en Google Maps)
-        </a>
-      </div>
+    <div style="margin-top:6px">
+      <a id="waTop" class="btn" target="_blank" rel="noopener">Cotizar ahora</a>
 
-      <!-- MAPA ÚNICO (pin exacto) ✅ -->
-      <div class="mapWrap">
-        <iframe
-          src="https://www.google.com/maps?q=-0.2585749920038546,-79.18829876617119&z=17&output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Ubicación Jimy Zamora Car Audio Experts">
-        </iframe>
-      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=PRR6%2BG9%20Santo%20Domingo"
+         target="_blank"
+         class="btn secondary"
+         rel="noopener">Cómo llegar 📍</a>
     </div>
 
-    <!-- FORM -->
-    <div class="card" id="form">
-      <h2>Arma tu cotización</h2>
+    <div class="locationLine">
+      📍 <a href="https://www.google.com/maps/search/?api=1&query=PRR6%2BG9%20Santo%20Domingo"
+           target="_blank"
+           rel="noopener">
+        PRR6+G9 Santo Domingo (Ver ubicación en Google Maps)
+      </a>
+    </div>
 
-      <div class="grid">
-        <input id="car" placeholder="Carro (Ej: Vitara)">
-        <input id="year" placeholder="Año (Ej: 2012)">
-      </div>
-
-      <select id="need">
-        <option>Caja rumbera</option>
-        <option>Turbo rumbera</option>
-        <option>Combo interno</option>
-        <option>Alarma</option>
-        <option>GPS</option>
-        <option>Otro</option>
-      </select>
-
-      <div class="grid">
-        <input id="budget" placeholder="Presupuesto (Ej: $200 - $350)">
-        <input id="city" placeholder="Ciudad (Ej: Santo Domingo)">
-      </div>
-
-      <a id="waBtn" class="btn" target="_blank" rel="noopener">Enviar por WhatsApp</a>
-
-      <div class="hint">
-        Tip: si es caja, envíanos foto del maletero por WhatsApp para cotizar más rápido ✅
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- Link GPS abajo (pin exacto) -->
-      <div class="locationLine" style="margin-top:14px">
-        📍 <a href="https://www.google.com/maps?q=-0.2585749920038546,-79.18829876617119"
-             target="_blank"
-             rel="noopener">
-          Av. Puerto Ila y Teodoro Wolf (Cómo llegar)
-        </a>
-      </div>
+    <!-- MAPA (pin exacto por Plus Code) -->
+    <div class="mapWrap">
+      <iframe
+        src="https://www.google.com/maps?q=PRR6%2BG9%20Santo%20Domingo&z=17&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Ubicación Jimy Zamora Car Audio Experts">
+      </iframe>
     </div>
 
   </div>
 
+  <!-- FORM -->
+  <div class="card delay2">
+    <h2>Arma tu cotización</h2>
+
+    <div class="grid">
+      <input id="car" placeholder="Carro (Ej: Vitara)">
+      <input id="year" placeholder="Año (Ej: 2012)">
+    </div>
+
+    <select id="need">
+      <option>Caja rumbera</option>
+      <option>Turbo rumbera</option>
+      <option>Combo interno</option>
+      <option>Alarma</option>
+      <option>GPS</option>
+      <option>Otro</option>
+    </select>
+
+    <div class="grid">
+      <input id="budget" placeholder="Presupuesto (Ej: $200 - $350)">
+      <input id="city" placeholder="Ciudad (Ej: Santo Domingo)">
+    </div>
+
+    <a id="waBtn" class="btn" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+
+    <div class="hint">
+      Tip: si es caja, envíanos foto del maletero por WhatsApp para cotizar más rápido ✅
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="locationLine" style="margin-top:14px">
+      📍 <a href="https://www.google.com/maps/search/?api=1&query=PRR6%2BG9%20Santo%20Domingo"
+           target="_blank"
+           rel="noopener">
+        PRR6+G9 Santo Domingo (Cómo llegar)
+      </a>
+    </div>
+  </div>
+
+</div>
+
 <script>
-  const number = "593984484767";
+  // Animación al cargar
+  window.addEventListener("load", () => {
+    document.body.classList.add("loaded");
+  });
+
+  // WhatsApp
+  const number="593984484767";
 
   function generarLink(){
-    const car = document.getElementById("car").value.trim();
-    const year = document.getElementById("year").value.trim();
-    const need = document.getElementById("need").value.trim();
-    const budget = document.getElementById("budget").value.trim();
-    const city = document.getElementById("city").value.trim();
+    const car=document.getElementById("car").value.trim();
+    const year=document.getElementById("year").value.trim();
+    const need=document.getElementById("need").value.trim();
+    const budget=document.getElementById("budget").value.trim();
+    const city=document.getElementById("city").value.trim();
 
     const msg =
 `Hola Jimy, quiero cotizar:
@@ -222,15 +307,15 @@ Vengo de la landing. ¿Me ayudas con precio instalado?`;
   }
 
   function actualizar(){
-    const link = generarLink();
-    document.getElementById("waTop").href = link;
-    document.getElementById("waBtn").href = link;
+    const link=generarLink();
+    document.getElementById("waTop").href=link;
+    document.getElementById("waBtn").href=link;
   }
 
   ["car","year","need","budget","city"].forEach(id=>{
-    const el = document.getElementById(id);
-    el.addEventListener("input", actualizar);
-    el.addEventListener("change", actualizar);
+    const el=document.getElementById(id);
+    el.addEventListener("input",actualizar);
+    el.addEventListener("change",actualizar);
   });
 
   actualizar();
@@ -238,5 +323,3 @@ Vengo de la landing. ¿Me ayudas con precio instalado?`;
 
 </body>
 </html>
-
-
